@@ -9,15 +9,14 @@ Date.java
 TimeOfDay.java
  TimeOfDay
  TimeOfDay$TimeBlock
-DataLoader.java
- DataLoader
+DataHandlerSymptom.java
+ DataHandlerSymptom
 Record.java
  Record
 DataHandlerMeds.java
  DataHandlerMeds
-Database.java
- Database
- Database$1
+DataHandlerFactors.java
+ DataHandlerFactors
 DataHandlerGratitude.java
  DataHandlerGratitude
 DataHandler.java
@@ -30,7 +29,8 @@ DataHandlerEnergy.java
  DataHandlerEnergy
 DataHandlerFoodDiary.java
  DataHandlerFoodDiary
-DataHandlerSymptom.java
- DataHandlerSymptom
-DataHandlerFactors.java
- DataHandlerFactors
+Database.java
+ Database
+ Database$1
+DataLoader.java
+ DataLoader

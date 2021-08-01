@@ -96,7 +96,7 @@ public class Database {
         int recordListIndex = 0;
 
         for (int i = 0; i < DataCategory.values().length; i++) {
-            Record[] tempRecordList = getRecords(date, DataCategory.values()[i]);
+            Record[] tempRecordList = this.getRecords(date, DataCategory.values()[i]);
             for (int j = 0; j < tempRecordList.length; j++) {
                 if (tempRecordList[j] != null){
                     recordList[recordListIndex] = tempRecordList[j];
@@ -122,7 +122,7 @@ public class Database {
         DataHandler currDataHandler = getDataHandlerByCategory(category);
         for (int j = 0; j < currDataHandler.getRecordList().length; j++) {
             Record currRecord = currDataHandler.getRecord(j);
-            if (currRecord.getDate().equals(date)) {
+            if (currRecord != null && currRecord.getDate().equals(date)) {
                 recordList[recordListIndex] = currRecord;
                 recordListIndex++;
                 if (recordListIndex == recordList.length) {

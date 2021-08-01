@@ -6,3 +6,5 @@ RecordTest.java
  RecordTest
 DataHandlerTest.java
  DataHandlerTest
+DatabaseTest.java
+ DatabaseTest
