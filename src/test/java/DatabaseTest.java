@@ -59,7 +59,6 @@ class DatabaseTest {
         for (int i = 0; i < testRecords.length; i++) {
             database.addRecord(testRecords[i]);
         }
-
         assertEquals(testRecords[0], database.getRecords(testRecords[0].getDate())[0]);
         assertEquals(testRecords[1], database.getRecords(DataCategory.ENERGY)[0]);
         assertEquals(testRecords[2], database.getRecords(testRecords[2].getDate(), DataCategory.SLEEP)[0]);
