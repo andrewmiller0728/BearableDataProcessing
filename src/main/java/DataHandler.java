@@ -29,39 +29,22 @@ public abstract class DataHandler {
         this.id = nextID;
         nextID++;
         this.category = category;
-        this.recordList = new Record[8];
+        this.recordList = new Record[1];
         this.listIndex = 0;
     }
 
 
     /* METHODS */
 
-    public boolean containsRecord(Record record) {
-        for (int i = 0; i < recordList.length; i++) {
-            if (recordList[i].equals(record)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int getRecordIndex(Record record) {
-        for (int i = 0; i < recordList.length; i++) {
-            if (recordList[i].equals(record)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public boolean addRecord(Record newRecord) {
-        if (this.containsRecord(newRecord)) {
+        if (this.containsRecord(newRecord) || newRecord.getCategory() != category) {
             return false;
         }
         else if (listIndex == recordList.length) {
             extendRecordList();
         }
         recordList[listIndex] = newRecord;
+        listIndex++;
         return true;
     }
 
@@ -78,6 +61,26 @@ public abstract class DataHandler {
         else {
             return false;
         }
+    }
+
+    public boolean containsRecord(Record record) {
+        if (recordList != null && recordList.length > 0) {
+            for (int i = 0; i < recordList.length; i++) {
+                if (recordList[i] != null && recordList[i].equals(record)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getRecordIndex(Record record) {
+        for (int i = 0; i < recordList.length; i++) {
+            if (recordList[i] != null && recordList[i].equals(record)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public Record getRecord(int index) {

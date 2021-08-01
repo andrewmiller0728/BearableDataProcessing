@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /*
     DataLoader Class
 
@@ -20,12 +24,41 @@ public class DataLoader {
 
     /* METHODS */
 
-    public static void loadDataFromFile(String filepath, Database database) {
-        // load data from <filepath> into <database>
+    public static boolean loadDataFromFile(String filepath, Database database) throws FileNotFoundException {
+        String[] csvFileLines = getFileLines(new File(filepath));
+        String delimiter = ",";
+        for (int i = 0; i < csvFileLines.length; i++) {
+            String[] tokens = csvFileLines[i].split(delimiter);
+            for (int j = 0; j < tokens.length; j++) {
+                tokens[j] = tokens[j].substring(1, tokens[j].length() - 1);
+            }
+            if (!database.addRecord(Record.createRecordFromBearableTokens(tokens))) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public static void loadDataFromDirectory(String directorypath, Database database) {
-        // load data from all applicable files in <directorypath> into <database>
+    public static void loadDataFromDirectory(String directoryPath, Database database) {
+
+    }
+
+    private static String[] getFileLines(File csvFile) throws FileNotFoundException {
+        Scanner scanner = new Scanner(csvFile);
+
+        int lineCount = 0;
+        while (scanner.hasNextLine()) {
+            lineCount++;
+        }
+        scanner.reset();
+
+        String[] lines = new String[lineCount];
+        int linesIndex = 0;
+        while (scanner.hasNextLine()) {
+            lines[linesIndex] = scanner.nextLine();
+        }
+        scanner.close();
+        return lines;
     }
 
 }

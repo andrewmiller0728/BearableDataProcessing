@@ -26,4 +26,16 @@ class DateTest {
         assertEquals(new Date(7, 28, 1998), dateA);
         assertNotEquals(new Date(4, 20, 2021), dateB);
     }
+
+    @Test
+    void testCreateFromBearableString() {
+        String[] testStrings = {
+                "23rd Sep 2020", // length = 13
+                "9th Dec 2020", // length = 12
+                "8th May 2021" // length = 12
+        };
+        for (int i = 0; i < testStrings.length; i++) {
+            assertTrue(Date.createDateFromBearableString(testStrings[i]).isProper());
+        }
+    }
 }

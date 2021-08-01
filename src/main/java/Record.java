@@ -22,13 +22,14 @@ public class Record {
     private TimeOfDay timeOfDay;
     private DataCategory category;
     private int amount;
-    private String[] details;
+    private String details;
 
 
     /* CONSTRUCTORS */
 
+    // TODO: Add field for notes from exported Bearable Data csv file
     public Record(Date date, DayOfWeek dayOfWeek, TimeOfDay timeOfDay,
-                  DataCategory category, int amount, String[] details) {
+                  DataCategory category, int amount, String details) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.timeOfDay = timeOfDay;
@@ -39,6 +40,17 @@ public class Record {
 
 
     /* METHODS */
+
+    public static Record createRecordFromBearableTokens(String[] tokens) {
+        return new Record(
+                Date.createDateFromBearableString(tokens[0]),
+                DayOfWeek.getDayOfWeekFromBearableString(tokens[1]),
+                TimeOfDay.createTimeOfDayFromBearableString(tokens[2]),
+                DataCategory.getDataCategoryFromBearableString(tokens[3]),
+                Integer.parseInt(tokens[4]),
+                tokens[5]
+        );
+    }
 
     public Date getDate() {
         return date;
@@ -60,7 +72,7 @@ public class Record {
         return amount;
     }
 
-    public String[] getDetails() {
+    public String getDetails() {
         return details;
     }
 
@@ -84,8 +96,17 @@ public class Record {
         this.amount = amount;
     }
 
-    public void setDetails(String[] details) {
+    public void setDetails(String details) {
         this.details = details;
+    }
+
+    public boolean isProper() {
+        return
+                date.isProper()
+                && dayOfWeek != null
+                && timeOfDay.isProper()
+                && category != null
+                && details != null;
     }
 
     @Override
@@ -99,24 +120,9 @@ public class Record {
         if (dayOfWeek != record.dayOfWeek) return false;
         if (!timeOfDay.equals(record.timeOfDay)) return false;
         if (category != record.category) return false;
+        if (!details.equals(record.details)) return false;
 
-        for (int i = 0; i < details.length; i++) {
-            if (!details[i].equals(record.getDetails()[i])) {
-                return false;
-            }
-        }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (dayOfWeek != null ? dayOfWeek.hashCode() : 0);
-        result = 31 * result + (timeOfDay != null ? timeOfDay.hashCode() : 0);
-        result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + amount;
-        result = 31 * result + Arrays.hashCode(details);
-        return result;
     }
 
 
