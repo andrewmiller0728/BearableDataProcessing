@@ -22,7 +22,7 @@ public class Date {
 
     /* CONSTRUCTORS */
 
-    public Date(int day, int month, int year) {
+    public Date(int month, int day, int year) {
         this.setYear(year);
         this.setMonth(month);
         this.setDay(day);
@@ -44,34 +44,15 @@ public class Date {
     }
 
     public void setDay(int day) {
-        if (isRealDay(day)) {
-            this.day = day;
-        }
-        else {
-            throw new IllegalArgumentException(
-                    String.format("Input day must be within bounds [1, %d]", getDaysInMonth(month, year))
-            );
-        }
+        this.day = day;
     }
 
     public void setMonth(int month) {
-        if (isRealMonth(month)) {
-            this.month = month;
-        }
-        else {
-            throw new IllegalArgumentException("Input month must be within bounds [1, 12]");
-        }
+        this.month = month;
     }
 
     public void setYear(int year) {
-        if (isRealYear(year)) {
-            this.year = year;
-        }
-        else {
-            throw new IllegalArgumentException(
-                    String.format("Input year must be within bounds [1, %d]", getCurrentYear())
-            );
-        }
+        this.year = year;
     }
 
     public boolean isProper() {

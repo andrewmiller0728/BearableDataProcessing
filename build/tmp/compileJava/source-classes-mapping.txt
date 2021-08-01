@@ -4,8 +4,9 @@ DataCategory.java
  DataCategory
 Main.java
  Main
-Date.java
- Date
+TimeOfDay.java
+ TimeOfDay
+ TimeOfDay$TimeBlock
 Database.java
  Database
  Database$1
@@ -13,9 +14,8 @@ DataHandlerGratitude.java
  DataHandlerGratitude
 Record.java
  Record
-TimeOfDay.java
- TimeOfDay
- TimeOfDay$TimeBlock
+Date.java
+ Date
 DataHandlerMood.java
  DataHandlerMood
 DataLoader.java
