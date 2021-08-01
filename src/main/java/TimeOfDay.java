@@ -96,6 +96,26 @@ public class TimeOfDay {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TimeOfDay)) return false;
+
+        TimeOfDay timeOfDay = (TimeOfDay) o;
+
+        if (hour != timeOfDay.hour) return false;
+        if (minute != timeOfDay.minute) return false;
+        return timeBlock == timeOfDay.timeBlock;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = hour;
+        result = 31 * result + minute;
+        result = 31 * result + (timeBlock != null ? timeBlock.hashCode() : 0);
+        return result;
+    }
+
     private TimeBlock calcTimeBlock(int hour, int minute) {
         if (hour < 6) {
             return TimeBlock.PRE;

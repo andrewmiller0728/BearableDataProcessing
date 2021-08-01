@@ -72,4 +72,10 @@ class TimeOfDayTest {
         assertFalse(timeC.isProper());
     }
 
+    @Test
+    void equals() {
+        assertTrue(timeA.equals(new TimeOfDay(5, 40, TimeOfDay.TimeBlock.PRE)));
+        assertFalse(timeA.equals(timeB));
+    }
+
 }

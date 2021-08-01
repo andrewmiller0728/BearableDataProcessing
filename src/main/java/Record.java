@@ -92,16 +92,20 @@ public class Record {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Record)) return false;
-
         Record record = (Record) o;
 
         if (amount != record.amount) return false;
-        if (date != null ? !date.equals(record.date) : record.date != null) return false;
+        if (!date.equals(record.date)) return false;
         if (dayOfWeek != record.dayOfWeek) return false;
-        if (timeOfDay != null ? !timeOfDay.equals(record.timeOfDay) : record.timeOfDay != null) return false;
+        if (!timeOfDay.equals(record.timeOfDay)) return false;
         if (category != record.category) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(details, record.details);
+
+        for (int i = 0; i < details.length; i++) {
+            if (!details[i].equals(record.getDetails()[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
