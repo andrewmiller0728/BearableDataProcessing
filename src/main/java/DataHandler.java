@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /*
     DataCategoryHandler Class
 
@@ -106,6 +110,5 @@ public abstract class DataHandler {
         }
         recordList = extendedRecordList;
     }
-
 
 }
