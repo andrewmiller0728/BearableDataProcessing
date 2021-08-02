@@ -1,7 +1,7 @@
 package database;
 
 /*
-    database.Record Class
+    Record Class
 
     Author:
         Andrew Miller
@@ -42,39 +42,14 @@ public class Record {
     /* METHODS */
 
     public static Record createRecordFromBearableTokens(String[] tokens) {
-
-
         return new Record(
-                Date.parseDateFromBearableString(tokens[0]),
-                DayOfWeek.parseDayOfWeekFromBearableString(tokens[1]),
-                TimeOfDay.parseTimeOfDayFromBearableString(tokens[2]),
-                DataCategory.parseDataCategoryFromBearableString(tokens[3]),
-                parseAmountFromBearableString(tokens[4]),
+                BearableStringParser.parseDateFromBearableString(tokens[0]),
+                BearableStringParser.parseDayOfWeekFromBearableString(tokens[1]),
+                BearableStringParser.parseTimeOfDayFromBearableString(tokens[2]),
+                BearableStringParser.parseDataCategoryFromBearableString(tokens[3]),
+                BearableStringParser.parseAmountFromBearableString(tokens[4]),
                 tokens[5]
         );
-    }
-
-    private static float parseAmountFromBearableString(String rawAmount) {
-        float amount = -1;
-        if (!rawAmount.equals("")) {
-            if (rawAmount.equals("None")) {
-                amount = 0;
-            }
-            else if (rawAmount.contains(":")) {
-                int hour = Integer.parseInt(rawAmount.split(":")[0]);
-                int minute = Integer.parseInt(rawAmount.split(":")[1]);
-                amount = hour + (minute / 60f);
-            }
-            else {
-                try {
-                    amount = Float.parseFloat(rawAmount);
-                }
-                catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return amount;
     }
 
     public Date getDate() {

@@ -11,7 +11,7 @@ import database.DataCategory;
         2021 08 02
 
     Description:
-        This class describes a database.datahandlers.DataHandlerEnergy object.
+        This class describes a database.datahandlers.DataHandlerBowelMovement object.
  */
 public class DataHandlerBowelMovements extends DataHandler {
 

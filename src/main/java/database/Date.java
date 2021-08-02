@@ -33,29 +33,6 @@ public class Date {
 
     /* METHODS */
 
-    public static Date parseDateFromBearableString(String rawDate) {
-        String[] tokens = rawDate.split(" ");
-
-        String[] monthStrings = {
-                "Jan", "Feb", "Mar",
-                "Apr", "May", "Jun",
-                "Jul", "Aug", "Sep",
-                "Oct", "Nov", "Dec"
-        };
-        int numMonth = -1;
-        for (int i = 0; i < monthStrings.length; i++) {
-            if (tokens[1].equals(monthStrings[i])) {
-                numMonth = i + 1;
-            }
-        }
-
-        return new Date(
-                numMonth,
-                Integer.parseInt(tokens[0].substring(0, tokens[0].length() - 2)),
-                Integer.parseInt(tokens[2])
-        );
-    }
-
     public int getDay() {
         return day;
     }

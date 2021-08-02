@@ -1,3 +1,4 @@
+import database.BearableStringParser;
 import database.TimeOfDay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,7 +84,7 @@ class TimeOfDayTest {
     void createTimeOfDayFromBearableString() {
         String[] testStrings = {"03:00", "15:33", "pre", "all day"};
         for (String testString : testStrings) {
-            assertTrue(TimeOfDay.parseTimeOfDayFromBearableString(testString).isProper());
+            assertTrue(BearableStringParser.parseTimeOfDayFromBearableString(testString).isProper());
         }
     }
 }

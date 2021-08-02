@@ -28,6 +28,8 @@ database/datahandlers/DataHandler.java
  database.datahandlers.DataHandler
 database/datahandlers/DataHandlerMeds.java
  database.datahandlers.DataHandlerMeds
+database/BearableStringParser.java
+ database.BearableStringParser
 database/datahandlers/DataHandlerSymptom.java
  database.datahandlers.DataHandlerSymptom
 database/datahandlers/DataHandlerSleep.java

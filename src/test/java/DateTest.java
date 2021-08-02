@@ -1,3 +1,4 @@
+import database.BearableStringParser;
 import database.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class DateTest {
                 "8th May 2021" // length = 12
         };
         for (int i = 0; i < testStrings.length; i++) {
-            assertTrue(Date.parseDateFromBearableString(testStrings[i]).isProper());
+            assertTrue(BearableStringParser.parseDateFromBearableString(testStrings[i]).isProper());
         }
     }
 }

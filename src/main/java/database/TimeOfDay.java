@@ -59,28 +59,6 @@ public class TimeOfDay {
 
     /* METHODS */
 
-    public static TimeOfDay parseTimeOfDayFromBearableString(String rawTimeOfDay) {
-        String timeDelimiter = ":";
-        if (rawTimeOfDay.equals("")) {
-            return new TimeOfDay(0, 0);
-        }
-        else if (rawTimeOfDay.contains(timeDelimiter)) {
-            int hour = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[0]);
-            int minute = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[1]);
-            return new TimeOfDay(hour, minute);
-        }
-        else {
-            for (int i = 0; i < TimeBlock.values().length; i++) {
-                if (TimeBlock.values()[i].name().equalsIgnoreCase(rawTimeOfDay.replace(' ', '_'))) {
-                    return new TimeOfDay(TimeBlock.values()[i]);
-                }
-            }
-            throw new IllegalArgumentException(
-                    String.format("Unexpected input string: \"%s\"", rawTimeOfDay)
-            );
-        }
-    }
-
     public int getHour() {
         return hour;
     }

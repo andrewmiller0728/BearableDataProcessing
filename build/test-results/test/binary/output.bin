@@ -1,12 +1,12 @@
-p[database.Database]	Created new object database.Database{id=0, name='My database.Database'} at 1627945099051 ms
-p[database.Database]	Created new object database.Database{id=1, name='My database.Database'} at 1627945099063 ms
+p[database.Database]	Created new object database.Database{id=0, name='My database.Database'} at 1627945627671 ms
+p[database.Database]	Created new object database.Database{id=1, name='My database.Database'} at 1627945627683 ms
 8[database.Database]	Attempting to load lines from file:
 s	"C:\Users\Andrew\Documents\Programming\BearableDataProcessing\src\main\resources\Bearable_Export_20210728.csv"...
 >[database.Database]	File found, attempting to count lines...
 0[database.Database]	1040 lines found in file...
 3[database.Database]	Gathering lines as Strings...
 5[database.Database]	Lines gathered, returning object
- 	"[Ljava.lang.String;@10fedc5a"
+ 	"[Ljava.lang.String;@60aeb877"
 +[database.Database]	Received 1040 lines...
 /[database.Database]	Loading line    0 of 1040:
 C	""22nd Sep 2020","Tuesday","03:00","Mood","6","Meh | Anxious","""
@@ -2088,5 +2088,5 @@
 <	""28th Jul 2021","Wednesday","14:39","Mood","7","Good","""
 /[database.Database]	Loading line 1039 of 1040:
 >	""28th Jul 2021","Wednesday","14:39","Energy","4","Good","""
-p[database.Database]	Created new object database.Database{id=2, name='My database.Database'} at 1627945099192 ms
-p[database.Database]	Created new object database.Database{id=3, name='My database.Database'} at 1627945099195 ms
+p[database.Database]	Created new object database.Database{id=2, name='My database.Database'} at 1627945627824 ms
+p[database.Database]	Created new object database.Database{id=3, name='My database.Database'} at 1627945627826 ms
