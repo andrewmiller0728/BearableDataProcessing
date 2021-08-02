@@ -1,3 +1,4 @@
+import database.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class DatabaseTest {
 
     @BeforeEach
     void setUp() {
-        database = new Database("My Database");
+        database = new Database("My database.Database");
         testRecords = new Record[]{
                 new Record(
                         new Date(7, 28, 1998),

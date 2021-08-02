@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerMeds Class
+    database.datahandlers.DataHandlerMeds Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerMeds object.
+        This class describes a database.datahandlers.DataHandlerMeds object.
  */
 public class DataHandlerMeds extends DataHandler {
 

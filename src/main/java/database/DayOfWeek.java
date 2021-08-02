@@ -1,9 +1,11 @@
+package database;
+
 /*
-    DayOfWeek Enum
+    database.DayOfWeek Enum
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:

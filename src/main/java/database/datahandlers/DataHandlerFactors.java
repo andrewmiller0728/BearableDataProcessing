@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerFactors Class
+    database.datahandlers.DataHandlerFactors Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerFactors object.
+        This class describes a database.datahandlers.DataHandlerFactors object.
  */
 public class DataHandlerFactors extends DataHandler {
 

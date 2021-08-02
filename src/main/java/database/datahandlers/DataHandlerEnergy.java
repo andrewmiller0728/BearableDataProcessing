@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerEnergy Class
+    database.datahandlers.DataHandlerEnergy Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerEnergy object.
+        This class describes a database.datahandlers.DataHandlerEnergy object.
  */
 public class DataHandlerEnergy extends DataHandler {
 

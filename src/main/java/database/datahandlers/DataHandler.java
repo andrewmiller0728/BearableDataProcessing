@@ -1,24 +1,25 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+package database.datahandlers;
+
+import database.DataCategory;
+import database.Record;
 
 /*
     DataCategoryHandler Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:
-        This class describes a DataHandler object.
+        This class describes a database.datahandlers.DataHandler object.
  */
 public abstract class DataHandler {
 
 
     /* VARIABLES */
 
-    // Provides a unique ID number for each DataHandler object
+    // Provides a unique ID number for each database.datahandlers.DataHandler object
     private static int nextID = 0;
     private final int id;
 

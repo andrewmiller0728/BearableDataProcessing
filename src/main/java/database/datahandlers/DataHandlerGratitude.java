@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerGratitude Class
+    database.datahandlers.DataHandlerGratitude Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerGratitude object.
+        This class describes a database.datahandlers.DataHandlerGratitude object.
  */
 public class DataHandlerGratitude extends DataHandler {
 

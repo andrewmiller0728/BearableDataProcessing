@@ -1,14 +1,16 @@
+package database;
+
 /*
-    TimeOfDay Class
+    database.TimeOfDay Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:
-        This class describes a TimeOfDay object. Time must be
-        input in 24-hr format. A TimeOfDay object is considered
+        This class describes a database.TimeOfDay object. Time must be
+        input in 24-hr format. A database.TimeOfDay object is considered
         proper if its time (hour & minute) falls within its TimeBlock
  */
 public class TimeOfDay {

@@ -1,3 +1,8 @@
+import database.*;
+import database.datahandlers.DataHandler;
+import database.datahandlers.DataHandlerEnergy;
+import database.datahandlers.DataHandlerMood;
+import database.datahandlers.DataHandlerSymptom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

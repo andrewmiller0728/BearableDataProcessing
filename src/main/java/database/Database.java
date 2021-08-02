@@ -1,34 +1,38 @@
+package database;
+
+import database.datahandlers.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /*
-    Database Class
+    database.Database Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:
-        This class describes a Database object. A Database object maintains the total
-        database of Bearable data. Each database contains DataHandler objects for
+        This class describes a database.Database object. A database.Database object maintains the total
+        database of Bearable data. Each database contains database.datahandlers.DataHandler objects for
         each of the eight categories of data.
-        A Database object can:
+        A database.Database object can:
           - receive data from a DataLoader object and send it to the appropriate
             DataCategoryHandler object
           - save data to the internal storage for faster load next time
-          - request data analysis from each of the DataHandler objects
+          - request data analysis from each of the database.datahandlers.DataHandler objects
  */
 public class Database {
 
 
     /* VARIABLES */
 
-    // Provides a unique ID number for each Database object
+    // Provides a unique ID number for each database.Database object
     private static int nextID = 0;
     private int id;
-    // As each Database has a unique ID number, names are optional
+    // As each database.Database has a unique ID number, names are optional
     private String name;
 
     private DataHandler[] dataHandlers;
@@ -52,7 +56,7 @@ public class Database {
         for (int i = 0; i < dataHandlers.length; i++) {
             dataHandlers[i] = createDataHandlerByCategory(DataCategory.values()[i]);
         }
-        System.out.printf("[Database]\tCreated new object %s at %d ms\n", this.toString(), System.currentTimeMillis());
+        System.out.printf("[database.Database]\tCreated new object %s at %d ms\n", this.toString(), System.currentTimeMillis());
     }
 
 
@@ -62,9 +66,9 @@ public class Database {
         return this.getDataHandlerByCategory(newRecord.getCategory()).addRecord(newRecord);
     }
 
-//    public boolean forceAddRecord(Record newRecord) {
-//        // Add Record to appropriate DataCategoryHandler regardless of contents
-//        // Returns true if Record is added (forced), false otherwise
+//    public boolean forceAddRecord(database.Record newRecord) {
+//        // Add database.Record to appropriate DataCategoryHandler regardless of contents
+//        // Returns true if database.Record is added (forced), false otherwise
 //        return false;
 //    }
 
@@ -121,10 +125,10 @@ public class Database {
 
     public boolean loadDataFromFile(String filepath) throws FileNotFoundException {
         String[] csvFileLines = getFileLines(new File(filepath));
-        System.out.printf("[Database]\tReceived %d lines...\n", csvFileLines.length);
+        System.out.printf("[database.Database]\tReceived %d lines...\n", csvFileLines.length);
         String delimiter = ",";
         for (int i = 0; i < csvFileLines.length; i++) {
-            System.out.printf("[Database]\tLoading line %4d of %4d:\n\t\"%s\"\n", i, csvFileLines.length, csvFileLines[i]);
+            System.out.printf("[database.Database]\tLoading line %4d of %4d:\n\t\"%s\"\n", i, csvFileLines.length, csvFileLines[i]);
             String[] tokens = csvFileLines[i].split(delimiter);
             for (int j = 0; j < tokens.length; j++) {
                 tokens[j] = tokens[j].substring(1, tokens[j].length() - 1);
@@ -159,7 +163,7 @@ public class Database {
 
     @Override
     public String toString() {
-        return "Database{" +
+        return "database.Database{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
@@ -186,7 +190,7 @@ public class Database {
             case BOWEL_MOVEMENTS:
                 return new DataHandlerBowelMovements();
         }
-        throw new IllegalArgumentException(String.format("Unexpected DataCategory \"%s\"", category.name()));
+        throw new IllegalArgumentException(String.format("Unexpected database.DataCategory \"%s\"", category.name()));
     }
 
     private DataHandler getDataHandlerByCategory(DataCategory category) {
@@ -195,7 +199,7 @@ public class Database {
                 return dataHandlers[i];
             }
         }
-        throw new IllegalArgumentException(String.format("Input DataCategory \"%s\" is not allowed", category.name()));
+        throw new IllegalArgumentException(String.format("Input database.DataCategory \"%s\" is not allowed", category.name()));
     }
 
     private static void extendRecordList(Record[] recordList) {
@@ -207,9 +211,9 @@ public class Database {
     }
 
     private static String[] getFileLines(File csvFile) throws FileNotFoundException {
-        System.out.printf("[Database]\tAttempting to load lines from file:\n\t\"%s\"...\n", csvFile.getAbsoluteFile());
+        System.out.printf("[database.Database]\tAttempting to load lines from file:\n\t\"%s\"...\n", csvFile.getAbsoluteFile());
         Scanner scanner = new Scanner(csvFile);
-        System.out.println("[Database]\tFile found, attempting to count lines...");
+        System.out.println("[database.Database]\tFile found, attempting to count lines...");
 
         scanner.nextLine(); // skip header
         int lineCount = 0;
@@ -218,9 +222,9 @@ public class Database {
             scanner.nextLine();
         }
         scanner.close();
-        System.out.printf("[Database]\t%d lines found in file...\n", lineCount);
+        System.out.printf("[database.Database]\t%d lines found in file...\n", lineCount);
 
-        System.out.println("[Database]\tGathering lines as Strings...");
+        System.out.println("[database.Database]\tGathering lines as Strings...");
         scanner = new Scanner(csvFile);
         scanner.nextLine(); //skip header
         String[] lines = new String[lineCount];
@@ -230,7 +234,7 @@ public class Database {
             linesIndex++;
         }
         scanner.close();
-        System.out.printf("[Database]\tLines gathered, returning object\n\t\"%s\"\n", lines.toString());
+        System.out.printf("[database.Database]\tLines gathered, returning object\n\t\"%s\"\n", lines.toString());
         return lines;
     }
 

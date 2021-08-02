@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerSleep Class
+    database.datahandlers.DataHandlerSleep Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerSleep object.
+        This class describes a database.datahandlers.DataHandlerSleep object.
  */
 public class DataHandlerSleep extends DataHandler {
 

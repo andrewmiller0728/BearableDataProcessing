@@ -1,14 +1,16 @@
+package database;
+
 /*
-    Record Class
+    database.Record Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:
-        This class describes a Record object.
-        A Record object contains one Bearable data record.
+        This class describes a database.Record object.
+        A database.Record object contains one Bearable data record.
  */
 public class Record {
 

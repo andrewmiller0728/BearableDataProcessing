@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerSymptom Class
+    database.datahandlers.DataHandlerSymptom Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerSymptom object.
+        This class describes a database.datahandlers.DataHandlerSymptom object.
  */
 public class DataHandlerSymptom extends DataHandler {
 

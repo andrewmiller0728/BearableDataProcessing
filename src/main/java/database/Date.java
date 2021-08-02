@@ -1,14 +1,16 @@
+package database;
+
 /*
-    Date Class
+    database.Date Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 29
 
     Description:
-        This class describes a Date object.
-        A Date object contains integer values for day, month, and year.
+        This class describes a database.Date object.
+        A database.Date object contains integer values for day, month, and year.
  */
 public class Date {
 

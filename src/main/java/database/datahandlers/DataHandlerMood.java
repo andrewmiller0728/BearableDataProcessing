@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerMood Class
+    database.datahandlers.DataHandlerMood Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerMood object.
+        This class describes a database.datahandlers.DataHandlerMood object.
  */
 public class DataHandlerMood extends DataHandler {
 

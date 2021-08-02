@@ -1,13 +1,17 @@
+package database.datahandlers;
+
+import database.DataCategory;
+
 /*
-    DataHandlerFoodDiary Class
+    database.datahandlers.DataHandlerFoodDiary Class
 
     Author:
         Andrew Miller
-    Date:
+    database.Date:
         2021 07 30
 
     Description:
-        This class describes a DataHandlerFoodDiary object.
+        This class describes a database.datahandlers.DataHandlerFoodDiary object.
  */
 public class DataHandlerFoodDiary extends DataHandler {
 
