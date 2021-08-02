@@ -35,7 +35,7 @@ class DateTest {
                 "8th May 2021" // length = 12
         };
         for (int i = 0; i < testStrings.length; i++) {
-            assertTrue(Date.createDateFromBearableString(testStrings[i]).isProper());
+            assertTrue(Date.parseDateFromBearableString(testStrings[i]).isProper());
         }
     }
 }

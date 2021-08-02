@@ -31,7 +31,7 @@ public class Date {
 
     /* METHODS */
 
-    public static Date createDateFromBearableString(String rawDate) {
+    public static Date parseDateFromBearableString(String rawDate) {
         String[] tokens = rawDate.split(" ");
 
         String[] monthStrings = {

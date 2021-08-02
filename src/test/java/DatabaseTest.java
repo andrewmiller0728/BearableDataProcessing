@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseTest {
@@ -62,6 +64,11 @@ class DatabaseTest {
         assertEquals(testRecords[0], database.getRecords(testRecords[0].getDate())[0]);
         assertEquals(testRecords[1], database.getRecords(DataCategory.ENERGY)[0]);
         assertEquals(testRecords[2], database.getRecords(testRecords[2].getDate(), DataCategory.SLEEP)[0]);
+    }
+
+    @Test
+    void loadDataFromFile() throws FileNotFoundException {
+        assertTrue(database.loadDataFromFile("C:\\Users\\Andrew\\Documents\\Programming\\BearableDataProcessing\\src\\main\\resources\\Bearable_Export_20210728.csv"));
     }
 
 }

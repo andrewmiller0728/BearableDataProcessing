@@ -13,7 +13,7 @@ public enum DayOfWeek {
 
     SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
 
-    public static DayOfWeek getDayOfWeekFromBearableString(String rawDayOfWeek) {
+    public static DayOfWeek parseDayOfWeekFromBearableString(String rawDayOfWeek) {
         for (int i = 0; i < values().length; i++) {
             if (values()[i].name().equalsIgnoreCase(rawDayOfWeek)) {
                 return values()[i];

@@ -25,53 +25,34 @@ public class Database {
 
     /* VARIABLES */
 
-    public final int DATA_CATEGORY_COUNT = 8;
-
     // Provides a unique ID number for each Database object
     private static int nextID = 0;
-    private final int id;
+    private int id;
     // As each Database has a unique ID number, names are optional
-    private final String name;
+    private String name;
 
-    private final DataHandler[] dataHandlers;
+    private DataHandler[] dataHandlers;
 
 
     /* CONSTRUCTORS */
 
     public Database() {
-        id = nextID;
-        nextID++;
-        this.name = null;
-        dataHandlers = new DataHandler[DATA_CATEGORY_COUNT];
-        for (int i = 0; i < dataHandlers.length; i++) {
-            dataHandlers[i] = createDataHandlerByCategory(DataCategory.values()[i]);
-        }
-//        dataHandlers[0] = new DataHandlerMood();
-//        dataHandlers[1] = new DataHandlerEnergy();
-//        dataHandlers[2] = new DataHandlerSymptom();
-//        dataHandlers[3] = new DataHandlerFactors();
-//        dataHandlers[4] = new DataHandlerFoodDiary();
-//        dataHandlers[5] = new DataHandlerMeds();
-//        dataHandlers[6] = new DataHandlerSleep();
-//        dataHandlers[7] = new DataHandlerGratitude();
+        constructorHelper(null);
     }
 
     public Database(String name) {
+        constructorHelper(name);
+    }
+
+    private void constructorHelper(String name) {
         id = nextID;
         nextID++;
         this.name = name;
-        dataHandlers = new DataHandler[DATA_CATEGORY_COUNT];
+        dataHandlers = new DataHandler[DataCategory.values().length];
         for (int i = 0; i < dataHandlers.length; i++) {
             dataHandlers[i] = createDataHandlerByCategory(DataCategory.values()[i]);
         }
-//        dataHandlers[0] = new DataHandlerMood();
-//        dataHandlers[1] = new DataHandlerEnergy();
-//        dataHandlers[2] = new DataHandlerSymptom();
-//        dataHandlers[3] = new DataHandlerFactors();
-//        dataHandlers[4] = new DataHandlerFoodDiary();
-//        dataHandlers[5] = new DataHandlerMeds();
-//        dataHandlers[6] = new DataHandlerSleep();
-//        dataHandlers[7] = new DataHandlerGratitude();
+        System.out.printf("[Database]\tCreated new object %s at %d ms\n", this.toString(), System.currentTimeMillis());
     }
 
 
@@ -138,15 +119,17 @@ public class Database {
         return recordList;
     }
 
-    public static boolean loadDataFromFile(String filepath, Database database) throws FileNotFoundException {
+    public boolean loadDataFromFile(String filepath) throws FileNotFoundException {
         String[] csvFileLines = getFileLines(new File(filepath));
+        System.out.printf("[Database]\tReceived %d lines...\n", csvFileLines.length);
         String delimiter = ",";
         for (int i = 0; i < csvFileLines.length; i++) {
+            System.out.printf("[Database]\tLoading line %4d of %4d:\n\t\"%s\"\n", i, csvFileLines.length, csvFileLines[i]);
             String[] tokens = csvFileLines[i].split(delimiter);
             for (int j = 0; j < tokens.length; j++) {
                 tokens[j] = tokens[j].substring(1, tokens[j].length() - 1);
             }
-            if (!database.addRecord(Record.createRecordFromBearableTokens(tokens))) {
+            if (!this.addRecord(Record.createRecordFromBearableTokens(tokens))) {
                 return false;
             }
         }
@@ -174,6 +157,14 @@ public class Database {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "Database{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     private DataHandler createDataHandlerByCategory(DataCategory category) {
         switch (category) {
             case MOOD:
@@ -192,8 +183,10 @@ public class Database {
                 return new DataHandlerSleep();
             case GRATITUDE:
                 return new DataHandlerGratitude();
+            case BOWEL_MOVEMENTS:
+                return new DataHandlerBowelMovements();
         }
-        return null;
+        throw new IllegalArgumentException(String.format("Unexpected DataCategory \"%s\"", category.name()));
     }
 
     private DataHandler getDataHandlerByCategory(DataCategory category) {
@@ -202,7 +195,7 @@ public class Database {
                 return dataHandlers[i];
             }
         }
-        throw new IllegalArgumentException("Input DataCategory is not allowed");
+        throw new IllegalArgumentException(String.format("Input DataCategory \"%s\" is not allowed", category.name()));
     }
 
     private static void extendRecordList(Record[] recordList) {
@@ -214,20 +207,30 @@ public class Database {
     }
 
     private static String[] getFileLines(File csvFile) throws FileNotFoundException {
+        System.out.printf("[Database]\tAttempting to load lines from file:\n\t\"%s\"...\n", csvFile.getAbsoluteFile());
         Scanner scanner = new Scanner(csvFile);
+        System.out.println("[Database]\tFile found, attempting to count lines...");
 
+        scanner.nextLine(); // skip header
         int lineCount = 0;
         while (scanner.hasNextLine()) {
             lineCount++;
+            scanner.nextLine();
         }
-        scanner.reset();
+        scanner.close();
+        System.out.printf("[Database]\t%d lines found in file...\n", lineCount);
 
+        System.out.println("[Database]\tGathering lines as Strings...");
+        scanner = new Scanner(csvFile);
+        scanner.nextLine(); //skip header
         String[] lines = new String[lineCount];
         int linesIndex = 0;
         while (scanner.hasNextLine()) {
             lines[linesIndex] = scanner.nextLine();
+            linesIndex++;
         }
         scanner.close();
+        System.out.printf("[Database]\tLines gathered, returning object\n\t\"%s\"\n", lines.toString());
         return lines;
     }
 

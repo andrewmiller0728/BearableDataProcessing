@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /*
     Record Class
 
@@ -21,7 +19,7 @@ public class Record {
     private DayOfWeek dayOfWeek;
     private TimeOfDay timeOfDay;
     private DataCategory category;
-    private int amount;
+    private float amount;
     private String details;
 
 
@@ -29,7 +27,7 @@ public class Record {
 
     // TODO: Add field for notes from exported Bearable Data csv file
     public Record(Date date, DayOfWeek dayOfWeek, TimeOfDay timeOfDay,
-                  DataCategory category, int amount, String details) {
+                  DataCategory category, float amount, String details) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.timeOfDay = timeOfDay;
@@ -42,14 +40,39 @@ public class Record {
     /* METHODS */
 
     public static Record createRecordFromBearableTokens(String[] tokens) {
+
+
         return new Record(
-                Date.createDateFromBearableString(tokens[0]),
-                DayOfWeek.getDayOfWeekFromBearableString(tokens[1]),
-                TimeOfDay.createTimeOfDayFromBearableString(tokens[2]),
-                DataCategory.getDataCategoryFromBearableString(tokens[3]),
-                Integer.parseInt(tokens[4]),
+                Date.parseDateFromBearableString(tokens[0]),
+                DayOfWeek.parseDayOfWeekFromBearableString(tokens[1]),
+                TimeOfDay.parseTimeOfDayFromBearableString(tokens[2]),
+                DataCategory.parseDataCategoryFromBearableString(tokens[3]),
+                parseAmountFromBearableString(tokens[4]),
                 tokens[5]
         );
+    }
+
+    private static float parseAmountFromBearableString(String rawAmount) {
+        float amount = -1;
+        if (!rawAmount.equals("")) {
+            if (rawAmount.equals("None")) {
+                amount = 0;
+            }
+            else if (rawAmount.contains(":")) {
+                int hour = Integer.parseInt(rawAmount.split(":")[0]);
+                int minute = Integer.parseInt(rawAmount.split(":")[1]);
+                amount = hour + (minute / 60f);
+            }
+            else {
+                try {
+                    amount = Float.parseFloat(rawAmount);
+                }
+                catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return amount;
     }
 
     public Date getDate() {
@@ -68,7 +91,7 @@ public class Record {
         return category;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 

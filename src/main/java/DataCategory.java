@@ -12,9 +12,9 @@
 // TODO: BOWEL_MOVEMENTS DataCategory is in Bearable Data Export
 public enum DataCategory {
 
-    MOOD, ENERGY, SYMPTOM, FACTORS, FOOD_DIARY, MEDS, SLEEP, GRATITUDE;
+    MOOD, ENERGY, SYMPTOM, FACTORS, FOOD_DIARY, MEDS, SLEEP, GRATITUDE, BOWEL_MOVEMENTS;
 
-    public static DataCategory getDataCategoryFromBearableString(String rawCategory) {
+    public static DataCategory parseDataCategoryFromBearableString(String rawCategory) {
         if (rawCategory.equalsIgnoreCase("Mood")) {
             return MOOD;
         }
@@ -41,6 +41,9 @@ public enum DataCategory {
         }
         else if (rawCategory.equalsIgnoreCase("Gratitudes")) {
             return GRATITUDE;
+        }
+        else if (rawCategory.equalsIgnoreCase("Bowel Movements")) {
+            return BOWEL_MOVEMENTS;
         }
 
         throw new IllegalArgumentException(String.format("Unknown input string: \"%s\"", rawCategory));

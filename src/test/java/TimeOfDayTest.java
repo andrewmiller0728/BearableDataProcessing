@@ -82,7 +82,7 @@ class TimeOfDayTest {
     void createTimeOfDayFromBearableString() {
         String[] testStrings = {"03:00", "15:33", "pre", "all day"};
         for (String testString : testStrings) {
-            assertTrue(TimeOfDay.createTimeOfDayFromBearableString(testString).isProper());
+            assertTrue(TimeOfDay.parseTimeOfDayFromBearableString(testString).isProper());
         }
     }
 }

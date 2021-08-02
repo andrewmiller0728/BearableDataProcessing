@@ -57,9 +57,12 @@ public class TimeOfDay {
 
     /* METHODS */
 
-    public static TimeOfDay createTimeOfDayFromBearableString(String rawTimeOfDay) {
+    public static TimeOfDay parseTimeOfDayFromBearableString(String rawTimeOfDay) {
         String timeDelimiter = ":";
-        if (rawTimeOfDay.contains(timeDelimiter)) {
+        if (rawTimeOfDay.equals("")) {
+            return new TimeOfDay(0, 0);
+        }
+        else if (rawTimeOfDay.contains(timeDelimiter)) {
             int hour = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[0]);
             int minute = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[1]);
             return new TimeOfDay(hour, minute);
