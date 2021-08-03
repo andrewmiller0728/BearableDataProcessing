@@ -33,6 +33,34 @@ public class Date {
 
     /* METHODS */
 
+    public boolean isMoreRecent(Date date) {
+        if (this.year > date.year) {
+            return true;
+        }
+        else if (this.year == date.year) {
+            if (this.month > date.month) {
+                return true;
+            }
+            else if (this.month == date.month) {
+                if (this.day > date.day) {
+                    return true;
+                }
+                else if (this.day == date.day) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
     public int getDay() {
         return day;
     }
@@ -71,6 +99,11 @@ public class Date {
         if (day != date.day) return false;
         if (month != date.month) return false;
         return year == date.year;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%02d/%02d/%04d", month, day, year);
     }
 
     private int getDaysInMonth(int month, int year) {

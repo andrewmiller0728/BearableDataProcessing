@@ -18,7 +18,7 @@ class DatabaseTest {
                 new Record(
                         new Date(7, 28, 1998),
                         DayOfWeek.TUESDAY,
-                        new TimeOfDay(6, 15),
+                        new Time(6, 15),
                         DataCategory.MOOD,
                         10,
                         "My Birthday"
@@ -26,7 +26,7 @@ class DatabaseTest {
                 new Record(
                         new Date(8, 7, 1972),
                         DayOfWeek.TUESDAY,
-                        new TimeOfDay(12, 0),
+                        new Time(12, 0),
                         DataCategory.ENERGY,
                         10,
                         "My Mom's Birthday"
@@ -34,7 +34,7 @@ class DatabaseTest {
                 new Record(
                         new Date(1, 10, 1999),
                         DayOfWeek.WEDNESDAY,
-                        new TimeOfDay(12, 0),
+                        new Time(12, 0),
                         DataCategory.SLEEP,
                         10,
                         "Charlotte's Birthday"
@@ -55,6 +55,14 @@ class DatabaseTest {
             database.addRecord(testRecords[i]);
         }
         assertTrue(database.removeRecord(testRecords[0]));
+    }
+
+    @Test
+    void getAllRecords() {
+        for (int i = 0; i < testRecords.length; i++) {
+            database.addRecord(testRecords[i]);
+        }
+        assertEquals(testRecords, database.getAllRecords());
     }
 
     @Test

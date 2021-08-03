@@ -1,6 +1,8 @@
 package database.datahandlers;
 
 import database.DataCategory;
+import database.Date;
+import database.Record;
 
 /*
     database.datahandlers.DataHandlerEnergy Class
@@ -30,7 +32,22 @@ public class DataHandlerEnergy extends DataHandler {
 
     /* METHODS */
 
-    //
+    public float getAverageRating(Date startDate, Date endDate) {
+        Record[] recordList = super.getRecordList();
+        float ratingSum = 0;
+        float ratingCount = 0;
+        for (int i = 0; i < recordList.length; i++) {
+            if (
+                    recordList[i] != null
+                    && recordList[i].getDate().isMoreRecent(startDate)
+                    && !recordList[i].getDate().isMoreRecent(endDate)
+            ) {
+                ratingSum += recordList[i].getAmount();
+                ratingCount++;
+            }
+        }
+        return ratingSum / ratingCount;
+    }
 
 
 }

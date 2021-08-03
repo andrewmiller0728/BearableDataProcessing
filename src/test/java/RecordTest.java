@@ -13,7 +13,7 @@ class RecordTest {
         recordA = new Record(
                 new Date(7, 28, 1998),
                 DayOfWeek.TUESDAY,
-                new TimeOfDay(6, 15),
+                new Time(6, 15),
                 DataCategory.MOOD,
                 10,
                 "My Birthday"
@@ -21,7 +21,7 @@ class RecordTest {
         recordB = new Record(
                 new Date(7, 28, 1998),
                 DayOfWeek.TUESDAY,
-                new TimeOfDay(6, 15),
+                new Time(6, 15),
                 DataCategory.MOOD,
                 10,
                 "My Birthday"
@@ -29,7 +29,7 @@ class RecordTest {
         recordC = new Record(
                 new Date(1, 10, 1999),
                 DayOfWeek.WEDNESDAY,
-                new TimeOfDay(12, 0),
+                new Time(12, 0),
                 DataCategory.MOOD,
                 10,
                 "Charlotte's Birthday"

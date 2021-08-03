@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DateTest {
 
-    private Date dateA, dateB, dateC, dateD;
+    private Date dateA, dateB, dateC;
 
     @BeforeEach
     void setUp() {
-        dateA = new Date(7, 28, 1998);
-        dateB = new Date(4, 20, 3021);
-        dateC = new Date(4, 80, 2021);
+        dateA = new Date(7, 28, 2021);
+        dateB = new Date(4, 20, 2021);
+        dateC = new Date(4, 30, 2021);
     }
 
     @Test
@@ -40,4 +40,11 @@ class DateTest {
             assertTrue(BearableStringParser.parseDateFromBearableString(testStrings[i]).isProper());
         }
     }
+
+    @Test
+    void isMoreRecent() {
+        assertTrue(dateA.isMoreRecent(dateB));
+        assertTrue(dateC.isMoreRecent(dateB));
+    }
+
 }

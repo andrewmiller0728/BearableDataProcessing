@@ -56,14 +56,14 @@ public class Database {
         for (int i = 0; i < dataHandlers.length; i++) {
             dataHandlers[i] = createDataHandlerByCategory(DataCategory.values()[i]);
         }
-        System.out.printf("[database.Database]\tCreated new object %s at %d ms\n", this.toString(), System.currentTimeMillis());
+        System.out.printf("[Database]\tCreated new object %s\n", this.toString());
     }
 
 
     /* METHODS */
 
     public boolean addRecord(Record newRecord) {
-        return this.getDataHandlerByCategory(newRecord.getCategory()).addRecord(newRecord);
+        return this.getDataHandler(newRecord.getCategory()).addRecord(newRecord);
     }
 
 //    public boolean forceAddRecord(database.Record newRecord) {
@@ -73,7 +73,24 @@ public class Database {
 //    }
 
     public boolean removeRecord(Record oldRecord) {
-        return this.getDataHandlerByCategory(oldRecord.getCategory()).removeRecord(oldRecord);
+        return this.getDataHandler(oldRecord.getCategory()).removeRecord(oldRecord);
+    }
+
+    public Record[] getAllRecords() {
+        Record[] allRecords = new Record[1];
+        int allRecordsIndex = 0;
+        for (int i = 0; i < dataHandlers.length; i++) {
+            for (int j = 0; j < dataHandlers[i].getRecordList().length; j++) {
+                if (allRecordsIndex == allRecords.length) {
+                    allRecords = extendRecordList(allRecords);
+                }
+                else if (dataHandlers[i].getRecordList()[j] != null) {
+                    allRecords[allRecordsIndex] = dataHandlers[i].getRecordList()[j];
+                    allRecordsIndex++;
+                }
+            }
+        }
+        return allRecords;
     }
 
     public Record[] getRecords(Date date) {
@@ -81,17 +98,19 @@ public class Database {
             throw new IllegalArgumentException("Input date is improper");
         }
 
-        Record[] recordList = new Record[8];
+        Record[] recordList = new Record[1];
         int recordListIndex = 0;
 
         for (int i = 0; i < DataCategory.values().length; i++) {
             Record[] tempRecordList = this.getRecords(date, DataCategory.values()[i]);
             for (int j = 0; j < tempRecordList.length; j++) {
-                if (tempRecordList[j] != null){
-                    recordList[recordListIndex] = tempRecordList[j];
-                    recordListIndex++;
+                if (tempRecordList[j] != null) {
                     if (recordListIndex == recordList.length) {
-                        extendRecordList(recordList);
+                        recordList = extendRecordList(recordList);
+                    }
+                    else if (tempRecordList[j] != null) {
+                        recordList[recordListIndex] = tempRecordList[j];
+                        recordListIndex++;
                     }
                 }
             }
@@ -101,21 +120,23 @@ public class Database {
     }
 
     public Record[] getRecords(DataCategory category) {
-        return this.getDataHandlerByCategory(category).getRecordList();
+        return this.getDataHandler(category).getRecordList();
     }
 
     public Record[] getRecords(Date date, DataCategory category) {
         Record[] recordList = new Record[8];
         int recordListIndex = 0;
 
-        DataHandler currDataHandler = getDataHandlerByCategory(category);
+        DataHandler currDataHandler = getDataHandler(category);
         for (int j = 0; j < currDataHandler.getRecordList().length; j++) {
             Record currRecord = currDataHandler.getRecord(j);
             if (currRecord != null && currRecord.getDate().equals(date)) {
-                recordList[recordListIndex] = currRecord;
-                recordListIndex++;
                 if (recordListIndex == recordList.length) {
-                    extendRecordList(recordList);
+                    recordList = extendRecordList(recordList);
+                }
+                else {
+                    recordList[recordListIndex] = currRecord;
+                    recordListIndex++;
                 }
             }
         }
@@ -125,10 +146,10 @@ public class Database {
 
     public boolean loadDataFromFile(String filepath) throws FileNotFoundException {
         String[] csvFileLines = getFileLines(new File(filepath));
-        System.out.printf("[database.Database]\tReceived %d lines...\n", csvFileLines.length);
+        System.out.printf("[Database]\tReceived %d lines from file\n", csvFileLines.length);
         String delimiter = ",";
         for (int i = 0; i < csvFileLines.length; i++) {
-            System.out.printf("[database.Database]\tLoading line %4d of %4d:\n\t\"%s\"\n", i, csvFileLines.length, csvFileLines[i]);
+//            System.out.printf("[Database]\tLoading line %4d of %4d:\n\t\"%s\"\n", i, csvFileLines.length, csvFileLines[i]);
             String[] tokens = csvFileLines[i].split(delimiter);
             for (int j = 0; j < tokens.length; j++) {
                 tokens[j] = tokens[j].substring(1, tokens[j].length() - 1);
@@ -137,6 +158,7 @@ public class Database {
                 return false;
             }
         }
+        System.out.println(String.format("[Database]\tSuccessfully loaded %d records", csvFileLines.length));
         return true;
     }
 
@@ -144,29 +166,35 @@ public class Database {
 
     }
 
-    // TODO: saveData, loadData
-    public boolean saveData(String filepath) {
-        // Save data to input filepath for faster load on resume
-        // Returns true if data is saved, false otherwise
-        return false;
-    }
-
-    public boolean loadData(String filepath) {
-        // Loads previously saved data (not data from .csv files)
-        // Returns true if data is loaded, false otherwise
-        return false;
-    }
+//    // TODO: saveData, loadData
+//    public boolean saveData(String filepath) {
+//        // Save data to input filepath for faster load on resume
+//        // Returns true if data is saved, false otherwise
+//        return false;
+//    }
+//
+//    public boolean loadData(String filepath) {
+//        // Loads previously saved data (not data from .csv files)
+//        // Returns true if data is loaded, false otherwise
+//        return false;
+//    }
 
     public int getID() {
         return id;
     }
 
+    public DataHandler getDataHandler(DataCategory category) {
+        for (int i = 0; i < dataHandlers.length; i++) {
+            if (dataHandlers[i].getCategory() == category) {
+                return dataHandlers[i];
+            }
+        }
+        throw new IllegalArgumentException(String.format("Input database.DataCategory \"%s\" is not allowed", category.name()));
+    }
+
     @Override
     public String toString() {
-        return "database.Database{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return String.format("Database#%03d:\"%s\"", id, name);
     }
 
     private DataHandler createDataHandlerByCategory(DataCategory category) {
@@ -193,27 +221,17 @@ public class Database {
         throw new IllegalArgumentException(String.format("Unexpected database.DataCategory \"%s\"", category.name()));
     }
 
-    private DataHandler getDataHandlerByCategory(DataCategory category) {
-        for (int i = 0; i < dataHandlers.length; i++) {
-            if (dataHandlers[i].getCategory() == category) {
-                return dataHandlers[i];
-            }
-        }
-        throw new IllegalArgumentException(String.format("Input database.DataCategory \"%s\" is not allowed", category.name()));
-    }
-
-    private static void extendRecordList(Record[] recordList) {
+    private static Record[] extendRecordList(Record[] recordList) {
         Record[] extendedRecordList = new Record[recordList.length * 2];
         for (int i = 0; i < recordList.length; i++) {
             extendedRecordList[i] = recordList[i];
         }
-        recordList = extendedRecordList;
+        return extendedRecordList;
     }
 
     private static String[] getFileLines(File csvFile) throws FileNotFoundException {
-        System.out.printf("[database.Database]\tAttempting to load lines from file:\n\t\"%s\"...\n", csvFile.getAbsoluteFile());
+        System.out.printf("[Database]\tAttempting to load lines from file:\n\t\"%s\"...\n", csvFile.getAbsoluteFile());
         Scanner scanner = new Scanner(csvFile);
-        System.out.println("[database.Database]\tFile found, attempting to count lines...");
 
         scanner.nextLine(); // skip header
         int lineCount = 0;
@@ -222,9 +240,7 @@ public class Database {
             scanner.nextLine();
         }
         scanner.close();
-        System.out.printf("[database.Database]\t%d lines found in file...\n", lineCount);
 
-        System.out.println("[database.Database]\tGathering lines as Strings...");
         scanner = new Scanner(csvFile);
         scanner.nextLine(); //skip header
         String[] lines = new String[lineCount];
@@ -234,7 +250,6 @@ public class Database {
             linesIndex++;
         }
         scanner.close();
-        System.out.printf("[database.Database]\tLines gathered, returning object\n\t\"%s\"\n", lines.toString());
         return lines;
     }
 

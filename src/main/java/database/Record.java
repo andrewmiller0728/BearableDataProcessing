@@ -19,7 +19,7 @@ public class Record {
 
     private Date date;
     private DayOfWeek dayOfWeek;
-    private TimeOfDay timeOfDay;
+    private Time time;
     private DataCategory category;
     private float amount;
     private String details;
@@ -28,11 +28,11 @@ public class Record {
     /* CONSTRUCTORS */
 
     // TODO: Add field for notes from exported Bearable Data csv file
-    public Record(Date date, DayOfWeek dayOfWeek, TimeOfDay timeOfDay,
+    public Record(Date date, DayOfWeek dayOfWeek, Time time,
                   DataCategory category, float amount, String details) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
-        this.timeOfDay = timeOfDay;
+        this.time = time;
         this.category = category;
         this.amount = amount;
         this.details = details;
@@ -60,8 +60,8 @@ public class Record {
         return dayOfWeek;
     }
 
-    public TimeOfDay getTimeOfDay() {
-        return timeOfDay;
+    public Time getTimeOfDay() {
+        return time;
     }
 
     public DataCategory getCategory() {
@@ -84,8 +84,8 @@ public class Record {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public void setTimeOfDay(TimeOfDay timeOfDay) {
-        this.timeOfDay = timeOfDay;
+    public void setTimeOfDay(Time time) {
+        this.time = time;
     }
 
     public void setCategory(DataCategory category) {
@@ -104,7 +104,7 @@ public class Record {
         return
                 date.isProper()
                 && dayOfWeek != null
-                && timeOfDay.isProper()
+                && time.isProper()
                 && category != null
                 && details != null;
     }
@@ -118,12 +118,23 @@ public class Record {
         if (amount != record.amount) return false;
         if (!date.equals(record.date)) return false;
         if (dayOfWeek != record.dayOfWeek) return false;
-        if (!timeOfDay.equals(record.timeOfDay)) return false;
+        if (!time.equals(record.time)) return false;
         if (category != record.category) return false;
         if (!details.equals(record.details)) return false;
 
         return true;
     }
 
-
+    @Override
+    public String toString() {
+        return String.format(
+                "Record{ %10s,  %9s,  %13s,  %14s,  %6.2f,  \"%1s\" }",
+                date.toString(),
+                dayOfWeek.name(),
+                time.toString(),
+                category.name(),
+                amount,
+                details
+        );
+    }
 }

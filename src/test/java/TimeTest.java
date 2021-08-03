@@ -1,19 +1,19 @@
 import database.BearableStringParser;
-import database.TimeOfDay;
+import database.Time;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TimeOfDayTest {
+class TimeTest {
 
-    private TimeOfDay timeA, timeB, timeC;
+    private Time timeA, timeB, timeC;
 
     @BeforeEach
     void setUp() {
-        timeA = new TimeOfDay(5, 40);
-        timeB = new TimeOfDay(TimeOfDay.TimeBlock.AM);
-        timeC = new TimeOfDay(16, 7, TimeOfDay.TimeBlock.PM);
+        timeA = new Time(5, 40);
+        timeB = new Time(Time.TimeBlock.AM);
+        timeC = new Time(16, 7, Time.TimeBlock.PM);
     }
 
     @Test
@@ -32,9 +32,9 @@ class TimeOfDayTest {
 
     @Test
     void getTimeBlock() {
-        assertEquals(TimeOfDay.TimeBlock.PRE, timeA.getTimeBlock());
-        assertEquals(TimeOfDay.TimeBlock.AM, timeB.getTimeBlock());
-        assertEquals(TimeOfDay.TimeBlock.PM, timeC.getTimeBlock());
+        assertEquals(Time.TimeBlock.PRE, timeA.getTimeBlock());
+        assertEquals(Time.TimeBlock.AM, timeB.getTimeBlock());
+        assertEquals(Time.TimeBlock.PM, timeC.getTimeBlock());
     }
 
     @Test
@@ -59,12 +59,12 @@ class TimeOfDayTest {
 
     @Test
     void setTimeBlock() {
-        timeA.setTimeBlock(TimeOfDay.TimeBlock.ALL_DAY);
-        assertEquals(TimeOfDay.TimeBlock.ALL_DAY, timeA.getTimeBlock());
-        timeB.setTimeBlock(TimeOfDay.TimeBlock.AM);
-        assertEquals(TimeOfDay.TimeBlock.AM, timeB.getTimeBlock());
-        timeC.setTimeBlock(TimeOfDay.TimeBlock.MID);
-        assertEquals(TimeOfDay.TimeBlock.MID, timeC.getTimeBlock());
+        timeA.setTimeBlock(Time.TimeBlock.ALL_DAY);
+        assertEquals(Time.TimeBlock.ALL_DAY, timeA.getTimeBlock());
+        timeB.setTimeBlock(Time.TimeBlock.AM);
+        assertEquals(Time.TimeBlock.AM, timeB.getTimeBlock());
+        timeC.setTimeBlock(Time.TimeBlock.MID);
+        assertEquals(Time.TimeBlock.MID, timeC.getTimeBlock());
     }
 
     @Test
@@ -76,7 +76,7 @@ class TimeOfDayTest {
 
     @Test
     void equals() {
-        assertTrue(timeA.equals(new TimeOfDay(5, 40, TimeOfDay.TimeBlock.PRE)));
+        assertTrue(timeA.equals(new Time(5, 40, Time.TimeBlock.PRE)));
         assertFalse(timeA.equals(timeB));
     }
 

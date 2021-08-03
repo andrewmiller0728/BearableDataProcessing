@@ -13,7 +13,7 @@ package database;
         input in 24-hr format. A database.TimeOfDay object is considered
         proper if its time (hour & minute) falls within its TimeBlock
  */
-public class TimeOfDay {
+public class Time {
 
 
     /* ENUMS */
@@ -32,7 +32,7 @@ public class TimeOfDay {
 
     /* CONSTRUCTORS */
 
-    public TimeOfDay(int hour, int minute) {
+    public Time(int hour, int minute) {
         if (!isRealTime(hour, minute)) {
             throw new IllegalArgumentException("Input time is not a real, 24-hr time.");
         }
@@ -41,13 +41,13 @@ public class TimeOfDay {
         this.timeBlock = calcTimeBlock(hour, minute);
     }
 
-    public TimeOfDay(TimeBlock timeBlock) {
+    public Time(TimeBlock timeBlock) {
         this.hour = -1;
         this.minute = -1;
         this.timeBlock = timeBlock;
     }
 
-    public TimeOfDay(int hour, int minute, TimeBlock timeBlock) {
+    public Time(int hour, int minute, TimeBlock timeBlock) {
         if (!isRealTime(hour, minute)) {
             throw new IllegalArgumentException("Input time is not a real, 24-hr time.");
         }
@@ -101,13 +101,18 @@ public class TimeOfDay {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TimeOfDay)) return false;
+        if (!(o instanceof Time)) return false;
 
-        TimeOfDay timeOfDay = (TimeOfDay) o;
+        Time time = (Time) o;
 
-        if (hour != timeOfDay.hour) return false;
-        if (minute != timeOfDay.minute) return false;
-        return timeBlock == timeOfDay.timeBlock;
+        if (hour != time.hour) return false;
+        if (minute != time.minute) return false;
+        return timeBlock == time.timeBlock;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%02d:%02d-%s", hour, minute, timeBlock.name());
     }
 
     private TimeBlock calcTimeBlock(int hour, int minute) {

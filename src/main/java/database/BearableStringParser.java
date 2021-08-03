@@ -48,20 +48,20 @@ public class BearableStringParser {
         throw new IllegalArgumentException(String.format("Unknown input string: \"%s\"", rawDayOfWeek));
     }
 
-    public static TimeOfDay parseTimeOfDayFromBearableString(String rawTimeOfDay) {
+    public static Time parseTimeOfDayFromBearableString(String rawTimeOfDay) {
         String timeDelimiter = ":";
         if (rawTimeOfDay.equals("")) {
-            return new TimeOfDay(0, 0);
+            return new Time(0, 0);
         }
         else if (rawTimeOfDay.contains(timeDelimiter)) {
             int hour = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[0]);
             int minute = Integer.parseInt(rawTimeOfDay.split(timeDelimiter)[1]);
-            return new TimeOfDay(hour, minute);
+            return new Time(hour, minute);
         }
         else {
-            for (int i = 0; i < TimeOfDay.TimeBlock.values().length; i++) {
-                if (TimeOfDay.TimeBlock.values()[i].name().equalsIgnoreCase(rawTimeOfDay.replace(' ', '_'))) {
-                    return new TimeOfDay(TimeOfDay.TimeBlock.values()[i]);
+            for (int i = 0; i < Time.TimeBlock.values().length; i++) {
+                if (Time.TimeBlock.values()[i].name().equalsIgnoreCase(rawTimeOfDay.replace(' ', '_'))) {
+                    return new Time(Time.TimeBlock.values()[i]);
                 }
             }
             throw new IllegalArgumentException(

@@ -1,9 +1,11 @@
 package database.datahandlers;
 
 import database.DataCategory;
+import database.Date;
+import database.Record;
 
 /*
-    database.datahandlers.DataHandlerMood Class
+    DataHandlerMood Class
 
     Author:
         Andrew Miller
@@ -11,7 +13,7 @@ import database.DataCategory;
         2021 07 30
 
     Description:
-        This class describes a database.datahandlers.DataHandlerMood object.
+        This class describes a DataHandlerMood object.
  */
 public class DataHandlerMood extends DataHandler {
 
@@ -30,7 +32,22 @@ public class DataHandlerMood extends DataHandler {
 
     /* METHODS */
 
-    //
+    public float getAverageRating(Date startDate, Date endDate) {
+        Record[] recordList = super.getRecordList();
+        float ratingSum = 0;
+        float ratingCount = 0;
+        for (int i = 0; i < recordList.length; i++) {
+            if (
+                    recordList[i] != null
+                            && (recordList[i].getDate().isMoreRecent(startDate))
+                            && !recordList[i].getDate().isMoreRecent(endDate)
+            ) {
+                ratingSum += recordList[i].getAmount();
+                ratingCount++;
+            }
+        }
+        return ratingSum / ratingCount;
+    }
 
 
 }
